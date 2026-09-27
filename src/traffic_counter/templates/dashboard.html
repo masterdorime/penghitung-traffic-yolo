@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traffic Counter</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Lewati ke konten utama</a>
+<header class="site-header">
+<div class="wrap">
+<p class="eyebrow">Operasi lalu lintas</p>
+<h1>Traffic Counter</h1>
+<p class="subtitle">Local daily traffic overview</p>
+</div>
+</header>
+<main id="main" class="wrap" data-status-url="/api/status" data-summary-url="/api/summary" data-timeseries-url="/api/timeseries">
+<section class="card" aria-labelledby="status-heading">
+<h2 id="status-heading">Status</h2>
+<div class="status-grid">
+<div class="status-item"><span class="k">Status aplikasi</span><span id="app-state" data-state="unknown" aria-live="polite"><span class="shape" aria-hidden="true">?</span> <span class="label">memuat</span></span></div>
+<div class="status-item"><span class="k">Status stream</span><span id="stream-state" data-state="unknown" aria-live="polite"><span class="shape" aria-hidden="true">?</span> <span class="label">memuat</span></span></div>
+<div class="status-item"><span class="k">FPS aktual</span><span id="actual-fps" class="metric">memuat</span></div>
+<div class="status-item"><span class="k">Umur snapshot</span><span id="snapshot-age" class="metric">memuat</span></div>
+<div class="status-item"><span class="k">Terakhir diperbarui</span><span id="last-updated">memuat</span></div>
+</div>
+<div id="data-warning" class="warning" role="status" aria-live="polite" data-state="loading">memuat data</div>
+</section>
+<section class="card" aria-labelledby="period-heading">
+<h2 id="period-heading">Periode</h2>
+<div id="period-cards" class="period-grid">
+<article class="period-card" data-period="pagi"><h3>Pagi</h3><p class="metric" data-role="total">memuat</p><p class="rate" data-role="rate">memuat</p><p class="shape-note" aria-hidden="true">circle ● stabil</p></article>
+<article class="period-card" data-period="siang"><h3>Siang</h3><p class="metric" data-role="total">memuat</p><p class="rate" data-role="rate">memuat</p><p class="shape-note" aria-hidden="true">square ■ waspada</p></article>
+<article class="period-card" data-period="sore"><h3>Sore</h3><p class="metric" data-role="total">memuat</p><p class="rate" data-role="rate">memuat</p><p class="shape-note" aria-hidden="true">triangle ▲ sibuk</p></article>
+</div>
+</section>
+<section class="card" aria-labelledby="chart-heading">
+<h2 id="chart-heading">Hitungan per menit</h2>
+<div id="traffic-chart" role="img" aria-label="Grafik hitungan per menit">{{ chart_svg|safe }}</div>
+<table id="timeseries-table">
+<caption>Hitungan per menit</caption>
+<thead><tr><th scope="col">Menit</th><th scope="col">Jumlah</th><th scope="col">Detik observasi</th><th scope="col">Periode</th></tr></thead>
+<tbody>{{ table_rows|safe }}</tbody>
+</table>
+</section>
+<section class="card" aria-labelledby="export-heading">
+<h2 id="export-heading">Ekspor</h2>
+<a id="export-link" href="/api/export.csv">Download CSV</a>
+</section>
+</main>
+<footer class="site-footer">
+<div class="wrap"><p>Sumber lokal: /api/status, /api/summary, /api/timeseries</p></div>
+</footer>
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+<script>window.trafficDashboard.init();</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+[stream]
+url = "https://jmlive.jasamarga.com/hls/6/8ef68a94-4b79-4316-af23-7a6e6b7b88f5/index.m3u8"
+width = 1280
+height = 720
+
+[model]
+name = "yolo26s.pt"
+device = "cuda:0"
+confidence = 0.15
+iou = 0.70
+max_detections = 100
+image_size = 960
+tracker = "bytetrack.yaml"
+persist = true
+
+[line]
+x1 = 0.08
+y1 = 0.62
+x2 = 0.92
+y2 = 0.62
+hysteresis = 0.005
+calibrated = true
+
+[timing]
+target_fps = 10
+reconnect_initial_seconds = 1.0
+reconnect_max_seconds = 30.0
+drain_seconds = 5.0
+health_bucket_seconds = 10
+rolling_min_healthy_seconds = 60
+
+[output]
+port = 5000
+database = "data/traffic.db"
+export_directory = "data/exports"
+calibration_directory = "data/calibration"
+log_file = "data/traffic-counter.log"
